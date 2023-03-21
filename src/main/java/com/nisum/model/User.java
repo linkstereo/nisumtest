@@ -49,7 +49,7 @@ public class User implements Serializable, UserDetails {
     private Set<Phone> phones;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     List<Role> roles;
 
     public User(String email, String password, List<Role> roles) {

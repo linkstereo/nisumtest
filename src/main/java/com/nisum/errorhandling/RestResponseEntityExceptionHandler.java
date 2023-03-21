@@ -22,7 +22,7 @@ public class RestResponseEntityExceptionHandler
     public ResponseEntity<ErrorBody> handleUserNotExistException(
             Exception ex, WebRequest request) {
         return new ResponseEntity<>(
-                ErrorBody.builder().mensaje("User not exist").build(),
+                ErrorBody.builder().mensaje("El usuario no existe").build(),
                 new HttpHeaders(),
                 HttpStatus.NOT_FOUND);
     }
@@ -31,7 +31,7 @@ public class RestResponseEntityExceptionHandler
     public ResponseEntity<ErrorBody> handleEmailExistException(
             Exception ex, WebRequest request) {
         return new ResponseEntity<>(
-                ErrorBody.builder().mensaje("Email exist").build(),
+                ErrorBody.builder().mensaje("El correo ya esta registrado").build(),
                 new HttpHeaders(),
                 HttpStatus.BAD_REQUEST);
     }
@@ -40,7 +40,7 @@ public class RestResponseEntityExceptionHandler
     public ResponseEntity<ErrorBody> handleInvalidEmailException(
             Exception ex, WebRequest request) {
         return new ResponseEntity<>(
-                ErrorBody.builder().mensaje("Email is invalid. It must be in the form <name>@<domain>").build(),
+                ErrorBody.builder().mensaje("El correo es invalido. Debe ser de la forma <name>@<domain>").build(),
                 new HttpHeaders(),
                 HttpStatus.BAD_REQUEST);
     }

@@ -61,7 +61,7 @@ public class UserService {
         var exist = userRepository.findByEmail(user.getEmail());
 
         if ( isBlank(user.getEmail()))
-            throw new BadRequestException("Email cannot be null or empty");
+            throw new BadRequestException("El correo no puede ser nulo o vacio");
 
         if (!EmailValidator.getInstance().isValid(user.getEmail()))
             throw new InvalidEmailException();
@@ -120,7 +120,7 @@ public class UserService {
 
     private Optional<User> getSavedUser(User user) throws BadRequestException, InvalidEmailException {
         if ( isNull(user.getId()) && isBlank(user.getEmail()))
-            throw new BadRequestException("Both fields id and email cannot be empty or null");
+            throw new BadRequestException("Amos campos (id y email) no pueder ser null o vacio");
 
         if (!EmailValidator.getInstance().isValid(user.getEmail()))
             throw new InvalidEmailException();
