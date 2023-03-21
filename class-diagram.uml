@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/Users/andresmarin/Documents/Proyectos Ejemplo/nisumtest</OriginalElement>
+  <nodes>
+    <node x="810.03515625" y="176.0">com.nisum.errorhandling.model.ErrorBody</node>
+    <node x="647.03515625" y="392.0">com.nisum.errorhandling.RestResponseEntityExceptionHandler</node>
+    <node x="797.0" y="1196.0">com.nisum.exception.InvalidEmailException</node>
+    <node x="167.91015625" y="765.0">com.nisum.service.UserService</node>
+    <node x="402.03515625" y="264.0">com.nisum.model.User</node>
+    <node x="0.0" y="396.5">com.nisum.repository.PhoneRepository</node>
+    <node x="1053.0" y="1196.0">com.nisum.exception.BadRequestException</node>
+    <node x="534.0" y="1196.0">com.nisum.exception.UserNotExistException</node>
+    <node x="388.4375" y="0.0">com.nisum.model.Phone</node>
+    <node x="0.0" y="1196.0">com.nisum.controller.constants.RestConstants</node>
+    <node x="260.0" y="636.0">com.nisum.repository.UserRepository</node>
+    <node x="245.0" y="1196.0">com.nisum.NisumtestApplicationTests</node>
+    <node x="1221.03515625" y="0.0">com.nisum.NisumtestApplication</node>
+    <node x="0.0" y="1318.0">com.nisum.exception.EmailExistException</node>
+    <node x="789.03515625" y="0.0">com.nisum.errorhandling.model.ErrorBody.ErrorBodyBuilder</node>
+    <node x="335.91015625" y="1028.0">com.nisum.controller.UserController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.nisum.errorhandling.model.ErrorBody" target="com.nisum.errorhandling.model.ErrorBody.ErrorBodyBuilder" relationship="DEPENDENCY">
+      <point x="-1.4210854715202004E-14" y="-83.0" />
+      <point x="1.4210854715202004E-14" y="61.0" />
+    </edge>
+    <edge source="com.nisum.errorhandling.model.ErrorBody.ErrorBodyBuilder" target="com.nisum.errorhandling.model.ErrorBody" relationship="DEPENDENCY">
+      <point x="81.66666666666669" y="61.0" />
+      <point x="993.2018229166666" y="149.0" />
+      <point x="979.2018229166667" y="149.0" />
+      <point x="67.66666666666669" y="-83.0" />
+    </edge>
+    <edge source="com.nisum.model.User" target="com.nisum.model.Phone" relationship="DEPENDENCY">
+      <point x="-75.0" y="-160.0" />
+      <point x="427.03515625" y="242.0" />
+      <point x="242.759765625" y="242.0" />
+      <point x="242.759765625" y="232.0" />
+      <point x="413.4375" y="232.0" />
+      <point x="-75.0" y="105.0" />
+    </edge>
+    <edge source="com.nisum.model.Phone" target="com.nisum.model.User" relationship="DEPENDENCY">
+      <point x="75.0" y="105.0" />
+      <point x="563.4375" y="242.0" />
+      <point x="577.03515625" y="242.0" />
+      <point x="75.0" y="-160.0" />
+    </edge>
+    <edge source="com.nisum.controller.UserController" target="com.nisum.service.UserService" relationship="TO_ONE">
+      <point x="-48.0" y="-61.5" />
+      <point x="383.91015625" y="1002.0" />
+      <point x="340.41015625" y="1002.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="com.nisum.service.UserService" target="com.nisum.model.Phone" relationship="DEPENDENCY">
+      <point x="-43.125" y="-105.5" />
+      <point x="297.28515625" y="739.0" />
+      <point x="249.5" y="739.0" />
+      <point x="249.5" y="242.0" />
+      <point x="242.759765625" y="242.0" />
+      <point x="242.759765625" y="232.0" />
+      <point x="413.4375" y="232.0" />
+      <point x="-75.0" y="105.0" />
+    </edge>
+    <edge source="com.nisum.errorhandling.RestResponseEntityExceptionHandler" target="com.nisum.errorhandling.model.ErrorBody" relationship="DEPENDENCY">
+      <point x="0.0" y="-60.5" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="com.nisum.errorhandling.model.ErrorBody.ErrorBodyBuilder" target="com.nisum.errorhandling.model.ErrorBody" relationship="INNER_CLASS">
+      <point x="-81.66666666666667" y="61.0" />
+      <point x="829.8684895833333" y="149.0" />
+      <point x="843.8684895833333" y="149.0" />
+      <point x="-67.66666666666669" y="-83.0" />
+    </edge>
+    <edge source="com.nisum.service.UserService" target="com.nisum.repository.UserRepository" relationship="TO_ONE">
+      <point x="43.125" y="-105.5" />
+      <point x="383.53515625" y="739.0" />
+      <point x="388.5" y="739.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="com.nisum.service.UserService" target="com.nisum.repository.PhoneRepository" relationship="TO_ONE">
+      <point x="-129.375" y="-105.5" />
+      <point x="211.03515625" y="739.0" />
+      <point x="119.5" y="739.0" />
+      <point x="0.0" y="27.5" />
+    </edge>
+    <edge source="com.nisum.controller.UserController" target="com.nisum.model.User" relationship="DEPENDENCY">
+      <point x="48.0" y="-61.5" />
+      <point x="479.91015625" y="1002.0" />
+      <point x="547.572265625" y="1002.0" />
+      <point x="547.572265625" y="610.0" />
+      <point x="502.03515625" y="610.0" />
+      <point x="0.0" y="160.0" />
+    </edge>
+    <edge source="com.nisum.repository.PhoneRepository" target="com.nisum.model.Phone" relationship="DEPENDENCY">
+      <point x="0.0" y="-27.5" />
+      <point x="119.5" y="242.0" />
+      <point x="242.759765625" y="242.0" />
+      <point x="242.759765625" y="232.0" />
+      <point x="413.4375" y="232.0" />
+      <point x="-75.0" y="105.0" />
+    </edge>
+    <edge source="com.nisum.service.UserService" target="com.nisum.model.User" relationship="DEPENDENCY">
+      <point x="129.375" y="-105.5" />
+      <point x="469.78515625" y="739.0" />
+      <point x="527.9375" y="739.0" />
+      <point x="527.9375" y="610.0" />
+      <point x="502.03515625" y="610.0" />
+      <point x="0.0" y="160.0" />
+    </edge>
+    <edge source="com.nisum.repository.UserRepository" target="com.nisum.model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-38.5" />
+      <point x="388.5" y="610.0" />
+      <point x="502.03515625" y="610.0" />
+      <point x="0.0" y="160.0" />
+    </edge>
+    <edge source="com.nisum.model.User" target="com.nisum.model.Phone" relationship="TO_MANY">
+      <point x="25.0" y="-160.0" />
+      <point x="527.03515625" y="242.0" />
+      <point x="513.4375" y="242.0" />
+      <point x="25.0" y="105.0" />
+    </edge>
+    <edge source="com.nisum.model.Phone" target="com.nisum.model.User" relationship="TO_ONE">
+      <point x="-25.0" y="105.0" />
+      <point x="463.4375" y="242.0" />
+      <point x="477.03515625" y="242.0" />
+      <point x="-25.0" y="-160.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.6586721141975026" showDependencies="true" x="574.2795424333395" y="712.2713232686631" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
