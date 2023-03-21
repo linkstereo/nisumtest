@@ -16,7 +16,7 @@ endpoints hechos son:
 - PUT http://localhost:8080/apiv1/users (Necesita credenciales JWT de USER)
     * Permite actualizar la info de un usuario almacenado en la base de datos
     
-Hay test unitarios y tambien test de integracion que validan la logica de la aplicacion
+Hay test unitarios y tambien test de integracion que validan la logica de la aplicacion.
 Los test de integracion realizan el camino feliz contemplando la capa de seguridad,
 como tambien un escenario de error en el que la autenticacion falla.
 
