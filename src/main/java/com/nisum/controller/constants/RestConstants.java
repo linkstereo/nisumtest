@@ -4,4 +4,5 @@ public class RestConstants {
 
     public final static String BASE_API_VERSION = "apiv1";
     public final static String USERS_URI_BASE = "users";
+    public final static String JWT_URI_BASE = "jwt";
 }

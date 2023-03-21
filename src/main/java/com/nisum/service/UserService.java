@@ -4,14 +4,29 @@ import com.nisum.exception.BadRequestException;
 import com.nisum.exception.EmailExistException;
 import com.nisum.exception.InvalidEmailException;
 import com.nisum.exception.UserNotExistException;
+import com.nisum.model.BearerToken;
+import com.nisum.model.LoginDto;
 import com.nisum.model.Phone;
+import com.nisum.model.Role;
+import com.nisum.model.RoleName;
 import com.nisum.model.User;
 import com.nisum.repository.PhoneRepository;
+import com.nisum.repository.RoleRepository;
 import com.nisum.repository.UserRepository;
+import com.nisum.security.JwtUtilities;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +41,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PhoneRepository phoneRepository;
+    private final RoleRepository roleRepository;
+
+    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtilities jwtUtilities;
+
 
     public List<User> getAll() {
         return userRepository.findAll();
@@ -35,7 +56,7 @@ public class UserService {
         return phoneRepository.findAllByUser(user);
     }
 
-    public User createUser(final User user) throws EmailExistException, BadRequestException, InvalidEmailException {
+    public BearerToken register(User user) throws EmailExistException, BadRequestException, InvalidEmailException {
         var phones = user.getPhones();
         var exist = userRepository.findByEmail(user.getEmail());
 
@@ -51,11 +72,19 @@ public class UserService {
             user.setCreated(new Date());
         }
 
-        userRepository.save(user);
+        Role role = roleRepository.findByRoleName(RoleName.USER);
+        user.setRoles(new ArrayList<>(Arrays.asList(role)));
+
+        var encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
+        user = userRepository.save(user);
         updatePhones(phones,user);
         user.setPhones(phones);
+        userRepository.save(user);
 
-        return userRepository.save(user);
+        String token = jwtUtilities.generateToken(user.getEmail(),Collections.singletonList(role.getRoleName()));
+        return new BearerToken(token , "Bearer ");
     }
 
     public User updateUser(User user) throws UserNotExistException, BadRequestException, InvalidEmailException {
@@ -72,10 +101,13 @@ public class UserService {
                 user.setName(savedUser.get().getName());
             }
 
+            var encodedPassword = passwordEncoder.encode(savedUser.get().getPassword());
+            user.setPassword(encodedPassword);
             user.setId(savedUser.get().getId());
             user.setCreated(savedUser.get().getCreated());
             user.setActive(savedUser.get().isActive());
             user.setLastLogin(savedUser.get().getLastLogin());
+            user.setRoles(savedUser.get().getRoles());
         }
 
         updatePhones(phones,user);
@@ -110,4 +142,20 @@ public class UserService {
     }
 
 
+    public BearerToken authenticate(LoginDto loginDto) {
+        Authentication authentication= authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginDto.getEmail(),
+                        loginDto.getPassword()
+                )
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        User savedUser = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        List<String> rolesNames = new ArrayList<>();
+        savedUser.getRoles().forEach(r-> rolesNames.add(r.getRoleName()));
+        String token = jwtUtilities.generateToken(savedUser.getEmail(),rolesNames);
+        return new BearerToken(token , "Bearer ");
+    }
 }

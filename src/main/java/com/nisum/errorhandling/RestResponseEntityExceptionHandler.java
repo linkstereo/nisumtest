@@ -8,6 +8,7 @@ import com.nisum.exception.UserNotExistException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -51,6 +52,15 @@ public class RestResponseEntityExceptionHandler
                 ErrorBody.builder().mensaje(ex.getCause().getMessage()).build(),
                 new HttpHeaders(),
                 HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({ AuthenticationException.class })
+    public ResponseEntity<ErrorBody> handleAuthenticationException(
+            Exception ex, WebRequest request) {
+        return new ResponseEntity<>(
+                ErrorBody.builder().mensaje(ex.getMessage()).build(),
+                new HttpHeaders(),
+                HttpStatus.UNAUTHORIZED);
     }
 
 
